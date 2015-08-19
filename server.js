@@ -1,15 +1,21 @@
 var express = require('express'),
     app = express();
 
-app.get('/', function (req, res) {
-    res.json({
-	status: 'ok',
-	message: 'Hello from inside a container!'
-    });
+var apiRouter = require('./routes/api');
+
+
+app.use('/api', apiRouter);
+
+app.use(function (err, req, res, next) {
+    res.status(err.stats || 500);
 });
 
-var apiRouter = require('./routes/api');
-app.use('/api', apiRouter);
+app.get('/', function (req, res, next) {
+    res.json({
+        status: 'ok',
+        message: 'hello, world!'
+    });
+});
 
 var server = app.listen(process.env.HTTP_PORT || 8080, function () {
     var host = server.address().address;
