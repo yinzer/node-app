@@ -8,7 +8,7 @@ RUN	apt-get update && apt-get install -y \
 	git
 
 # get node.js
-RUN  curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
+RUN  curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
 
 # install node.js
 RUN apt-get install -y nodejs
