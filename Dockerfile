@@ -2,19 +2,23 @@ FROM ubuntu:latest
 
 MAINTAINER Dave <git@davidesaias.com>
 
-# Install Node.js and git
-RUN	\
-	apt-get update && \
-	apt-get install -y curl && \
-	curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
-	apt-get install -y nodejs git
+# make sure apt is up to date along with installing packages
+RUN	apt-get update && apt-get install -y \
+	curl \
+	git
+
+# get node.js
+RUN  curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash - && \
+
+# install node.js
+RUN apt-get install -y nodejs
 
 
 # Install app dependencies
 RUN \
 	cd /opt && \
 	git clone https://github.com/yinzer/node-app.git && \
-	cd /node-app && \
+	cd node-app && \
 	npm install
 
 EXPOSE 8080
