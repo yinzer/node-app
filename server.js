@@ -8,6 +8,9 @@ app.get('/', function (req, res) {
     });
 });
 
+var apiRouter = require('./routes/api');
+app.use('/api', apiRouter);
+
 var server = app.listen(process.env.HTTP_PORT || 8080, function () {
     var host = server.address().address;
     var port = server.address().port;
