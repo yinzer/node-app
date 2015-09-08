@@ -1,10 +1,14 @@
 var express = require('express'),
+    morgan = require('morgan'),
     app = express();
 
 var apiRouter = require('./routes/api');
+var testing = require('./routes/testing');
 
+app.use(morgan('dev'));
 
 app.use('/api', apiRouter);
+app.use('/testing', testing);
 
 app.use(function (err, req, res, next) {
     res.status(err.stats || 500);

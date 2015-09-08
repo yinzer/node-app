@@ -12,4 +12,12 @@ router.get('/', function (req, res, next) {
 	});
 });
 
+router.get('/test', function (req, res, next) {
+	res.json({testing: 'dave'});
+});
+
+router.get('/test/:name', function (req, res, next) {
+	res.json({name: req.params.name});
+});
+
 module.exports = router;

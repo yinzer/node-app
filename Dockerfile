@@ -1,26 +1,15 @@
-FROM ubuntu:latest
+FROM yinzer/node
 
-MAINTAINER Dave <git@davidesaias.com>
+MAINTAINER Yinzer
 
-# make sure apt is up to date along with installing packages
-RUN	apt-get update && apt-get install -y \
-	curl \
-	git
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
 
-# get node.js
-RUN  curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+ADD . /opt/app
 
-# install node.js
-RUN apt-get install -y nodejs
+WORKDIR /opt/app
 
+EXPOSE 80
 
-# Install app dependencies
-RUN \
-	cd /opt && \
-	git clone https://github.com/yinzer/node-app.git && \
-	cd node-app && \
-	npm install
-
-EXPOSE 8080
-
-CMD ["node", "/opt/node-app/server.js"]
+CMD ["node", "server.js"]
